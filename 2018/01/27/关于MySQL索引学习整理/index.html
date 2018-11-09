@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>范世涛 | Terry Blog</title>
+  <title>关于MySQL索引学习整理 | Terry Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="范世涛">
-<meta property="og:url" content="http://yoursite.com/2018/11/06/范世涛/index.html">
+  <meta name="description" content="#关于MySQL索引学习整理  一. 索引的概念 　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．　　二. 使用原则 　　1. 适合索引的列是出现在where子句中的列,或join子句中的列.　　2. 使用唯一索引,对于列基数较大的索引效果">
+<meta name="keywords" content="-Mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于MySQL索引学习整理">
+<meta property="og:url" content="http://yoursite.com/2018/01/27/关于MySQL索引学习整理/index.html">
 <meta property="og:site_name" content="Terry Blog">
+<meta property="og:description" content="#关于MySQL索引学习整理  一. 索引的概念 　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．　　二. 使用原则 　　1. 适合索引的列是出现在where子句中的列,或join子句中的列.　　2. 使用唯一索引,对于列基数较大的索引效果">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-06T08:09:29.758Z">
+<meta property="og:updated_time" content="2018-01-26T22:50:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="范世涛">
+<meta name="twitter:title" content="关于MySQL索引学习整理">
+<meta name="twitter:description" content="#关于MySQL索引学习整理  一. 索引的概念 　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．　　二. 使用原则 　　1. 适合索引的列是出现在where子句中的列,或join子句中的列.　　2. 使用唯一索引,对于列基数较大的索引效果">
   
     <link rel="alternative" href="/atom.xml" title="Terry Blog" type="application/atom+xml">
   
@@ -147,27 +151,45 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-范世涛" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="关于MySQL索引学习整理-关于MySQL索引学习整理" class="article article-type-关于MySQL索引学习整理 " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      范世涛
+      关于MySQL索引学习整理
     </h1>
   
 
         
-        <a href="/2018/11/06/范世涛/" class="archive-article-date">
-  	<time datetime="2018-11-06T08:09:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-06</time>
+        <a href="/2018/01/27/关于MySQL索引学习整理/" class="archive-article-date">
+  	<time datetime="2018-01-26T22:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>#关于MySQL索引学习整理</p>
+<hr>
+<p><strong><em>一. 索引的概念</em></strong></p>
+<p>　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．<br>　　<br><strong><em>二. 使用原则</em></strong></p>
+<p>　　1. 适合索引的列是出现在where子句中的列,或join子句中的列.<br>　　2. 使用唯一索引,对于列基数较大的索引效果好,基数较小的索引效果差.<br>　　3. 使用短索引,目的为了节省空间,查询更快,涉及到的磁盘io较小.<br>　　4. 左前缀原则,创建n列索引时,实际创建了可用的n个索引,多列索引可起几个索引的作用,利用索引中最左列集来匹配行,这样的列集称为最左前缀, 尽量将使用频繁且过滤效果好的字段放“左边”.<br>　　5. 不要过度索引,索引不是越多越好,每个索引会占用额外的磁盘空间,降低性能<br>　　6. Innodb储存引擎默认会按照一定的顺序保存数据，如果明确定义了主键，则按照主键顺序保存。如果没有主键，但有唯一索引，就按照唯一索引的顺序保存。如果有几个列都是唯一的，都可以作为主键的时候，为了提高查询效率，应选择最常用访问的列作为主键。另外，innodb的普通index都会保存主键的键值，所有主键要尽可能选择较短的数据类型。可以看出，应当尽量避免对主键的修改。经过dba的测试，保证主键的递增可以提高插入性能.</p>
+<p><strong><em>三. 索引类型</em></strong></p>
+<p>　　1.    普通索引,最基本的索引，没有任何限制.<br>　　2.    唯一索引,索引列的值必须唯一，但允许有空值.<br>　　3.    主键索引,主键索引属于一种特殊的唯一索引，不允许有空值.<br>　　4.    单列索引,单个多列索引（组合索引）效率高于多个单列索引.<br>　　5.    最左前缀：多列索引,多列索引只有在where条件中含有索引中的首列字段时才有效.</p>
+<p><strong><em>四. 索引合理使用</em></strong><br>　　1.     首先要确定优化的目标，在什么样的业务场景下，表的大小等等。如果表比较小的<br>话，可能都不需要加索引.<br>　　2.  哪些字段可以建索引？ 一般都where、order by 或者 group by 后面的字段。<br>　　3.     记录修改的时候需要维护索引，所以会有开销，要衡量建索引之后的得与失（空间<br>+维护换时间）。比如学生表，可以认为name的重复度比较小，而age的重复度比较大，对于单列索引来说，比较适合建在重读度低的列上。<br>　　4.     对于select from students where name=’张三’and age=18;该中情况下：<br>   　　　　　A.    name 和 age 各自单独建立索引:<br>     　　　一般来说mysql会选择其中一个索引，name的可能性比较大，因为mysq会统计每个索引上的重复度，选用低重复度　　　的字段。所以不使用age，否则增加太多成本。<br>　　　　　　B. name和age的联合索引:<br>   　　　　 这种索引的切合度最好。但是相对单索引来说，维护的成本大,索引数据占用的存储空间也要更大。可是！有必要使　　　　用联合索引吗？一般没必要：学校有10000个学生，叫谢春花的会超过5个吗？5个找一个比建立联合索引花销小的　　　　多。<br>　　5. 什么情况下使用联合索引比较好呢？ 举一个例子，大学修课，需要创建一个关系对应表，有2个字段,student_id 和 teacher_id，想要查询某个老师和某个学生是否存在师生关系。一个学生会选50老师，一个老师会带200个学生如果只为student_id建立索引的情况下，经过索引会选出50条记录，然后在内存中where一下，去除其余的老师。相反如果只为teacher_id建立索引，经过索引会选出200条记录，然后在内存中where一下，去除其余的学生。两种情况都不是最优的，因为使用索引后范围依然很大，这个时候使用联合索引最合适，通过索引直接找到对应记录，差不多提高了一倍效率。</p>
+<p><strong><em>附:</em></strong></p>
+<p><strong><em>一. 什么是多列索引和最左索引</em></strong><br>　例: 查询满足条件的id:<br>　　mysql&gt;SELECT ｀uid｀ FROM people WHERE lname｀=’Liu’  AND ｀fname｀=’Zhiqun’ AND ｀age｀=26<br>　　因为我们不想扫描整表，故考虑用索引。<br>　(1)    单列索引：<br>　　　ALTER TABLE people ADD INDEX lname (lname);<br>　　　将lname列建索引，这样就把范围限制在lname=’Liu’的结果集1上，之后扫描结果集1，产生满足fname=’Zhi　qun’的结果集2，再扫描结果集2，找到 age=26的结果集3，即最终结果。由 　于建立了lname列的索引，与执行表的完全扫描相比，效率提高了很多，但我们要求扫描的记录数量仍旧远远超　过了实际所需 要的。虽然我们可以删除lname列上的索引，再创建fname或者age 　列的索引，但是，不论在哪个列上创建索引搜索效率仍旧相似。</p>
+<p>　(2). 多列索引：<br>    　　　ALTER TABLE people ADD INDEX lname_fname_age (lame,fname,age);<br>　　　为了提高搜索效率，我们需要考虑运用多列索引,由于索引文件以B－Tree格式保存，所以我们不用扫描任何记录，即可得到最终结果。<br>　　　注：在mysql中执行查询时，只能使用一个索引，如果我们在lname,fname,age上分别建索引,执行查询时，只能使用一个索引，mysql会选择一个最严格(获得结果集记录数最少)的索引。</p>
+<p>　　(3). 最左前缀：顾名思义，就是最左优先，上例中我们创建了lname_fname_age多列索引,相当于创建了(lname)单列索引，(lname,fname)组合索引以及(lname,fname,age)组合索引。<br>注：在创建多列索引时，要根据业务需求，where子句中使用最频繁的一列放在最左边。</p>
+<p><strong><em>二.InnoDB储存引擎</em></strong><br> 　　InnoDB是事务型数据库的首选引擎，支持事务安全表（ACID），支持行锁定和外键， InnoDB是默认的MySQL引擎。InnoDB主要特性有：</p>
+<p>　　(1)    InnoDB给MySQL提供了具有提交、回滚和崩溃恢复能力的事物安全（ACID兼容）存储引擎。InnoDB锁定在行级并且也在SELECT语句中提供一个类似Oracle的非锁定读。这些功能增加了多用户部署和性能。在SQL查询中，可以自由地将InnoDB类型的表和其他MySQL的表类型混合起来，甚至在同一个查询中也可以混合</p>
+<p>　　(2)    InnoDB是为处理巨大数据量的最大性能设计。它的CPU效率可能是任何其他基于磁盘的关系型数据库引擎锁不能匹敌的</p>
+<p>　　(3)    InnoDB存储引擎完全与MySQL服务器整合，InnoDB存储引擎为在主内存中缓存数据和索引而维持它自己的缓冲池。InnoDB将它的表和索引在一个逻辑表空间中，表空间可以包含数个文件（或原始磁盘文件）。这与MyISAM表不同，比如在MyISAM表中每个表被存放在分离的文件中。InnoDB表可以是任何尺寸，即使在文件尺寸被限制为2GB的操作系统上</p>
+<p>　　(4)    InnoDB支持外键完整性约束，存储表中的数据时，每张表的存储都按主键顺序存放，如果没有显示在表定义时指定主键，InnoDB会为每一行生成一个6字节的ROWID，并以此作为主键</p>
+<p>　　(5)InnoDB被用在众多需要高性能的大型数据库站点上InnoDB不创建目录，使用InnoDB时，MySQL将在MySQL数据目录下创建一个名为ibdata1的10MB大小的自动扩展数据文件，以及两个名为ib_logfile0和ib_logfile1的5MB大小的日志文件</p>
+
       
 
       
@@ -206,7 +228,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">-Mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Mysql//" class="article-tag-list-link color2">-Mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -256,7 +300,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/06/范世涛/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/01/27/关于MySQL索引学习整理/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -270,18 +314,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/11/07/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/02/06/IDEA 2018全系列产品激活码/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          test
+          IDEA 2018全系列产品激活码
         
       </div>
     </a>
   
   
-    <a href="/2018/11/06/my-first-blog/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">my first blog </div>
+    <a href="/2018/01/26/Spring Boot֮HelloWorld/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Boot之HelloWorld</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -312,8 +356,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2018/11/06/范世涛/", 
-    sourceId: "范世涛",
+    url: "http://yoursite.com/2018/01/27/关于MySQL索引学习整理/", 
+    sourceId: "关于MySQL索引学习整理",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -416,6 +460,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">-tool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">-Mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">-Java-SpringBoot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">-随笔</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
