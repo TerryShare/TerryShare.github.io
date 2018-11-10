@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>关于MySQL索引学习整理 | Terry Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#关于MySQL索引学习整理  一. 索引的概念 　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．　　二. 使用原则 　　1. 适合索引的列是出现在where子句中的列,或join子句中的列.　　2. 使用唯一索引,对于列基数较大的索引效果">
+  <meta name="description" content="#关于MySQL索引学习整理  一. 索引的概念 　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．">
 <meta name="keywords" content="-Mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于MySQL索引学习整理">
 <meta property="og:url" content="http://yoursite.com/2018/01/27/关于MySQL索引学习整理/index.html">
 <meta property="og:site_name" content="Terry Blog">
-<meta property="og:description" content="#关于MySQL索引学习整理  一. 索引的概念 　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．　　二. 使用原则 　　1. 适合索引的列是出现在where子句中的列,或join子句中的列.　　2. 使用唯一索引,对于列基数较大的索引效果">
+<meta property="og:description" content="#关于MySQL索引学习整理  一. 索引的概念 　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-01-26T22:50:24.000Z">
+<meta property="og:updated_time" content="2018-11-10T01:47:20.668Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于MySQL索引学习整理">
-<meta name="twitter:description" content="#关于MySQL索引学习整理  一. 索引的概念 　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．　　二. 使用原则 　　1. 适合索引的列是出现在where子句中的列,或join子句中的列.　　2. 使用唯一索引,对于列基数较大的索引效果">
+<meta name="twitter:description" content="#关于MySQL索引学习整理  一. 索引的概念 　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．">
   
     <link rel="alternative" href="/atom.xml" title="Terry Blog" type="application/atom+xml">
   
@@ -174,7 +174,7 @@
         <p>#关于MySQL索引学习整理</p>
 <hr>
 <p><strong><em>一. 索引的概念</em></strong></p>
-<p>　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．<br>　　<br><strong><em>二. 使用原则</em></strong></p>
+<p>　　索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。使用索引是提高SELECT操作性能的最佳途径,举个例子,索引好像是一本书的目录,可以根据目录快速找到对应的内容．<br><a id="more"></a><br><strong><em>二. 使用原则</em></strong></p>
 <p>　　1. 适合索引的列是出现在where子句中的列,或join子句中的列.<br>　　2. 使用唯一索引,对于列基数较大的索引效果好,基数较小的索引效果差.<br>　　3. 使用短索引,目的为了节省空间,查询更快,涉及到的磁盘io较小.<br>　　4. 左前缀原则,创建n列索引时,实际创建了可用的n个索引,多列索引可起几个索引的作用,利用索引中最左列集来匹配行,这样的列集称为最左前缀, 尽量将使用频繁且过滤效果好的字段放“左边”.<br>　　5. 不要过度索引,索引不是越多越好,每个索引会占用额外的磁盘空间,降低性能<br>　　6. Innodb储存引擎默认会按照一定的顺序保存数据，如果明确定义了主键，则按照主键顺序保存。如果没有主键，但有唯一索引，就按照唯一索引的顺序保存。如果有几个列都是唯一的，都可以作为主键的时候，为了提高查询效率，应选择最常用访问的列作为主键。另外，innodb的普通index都会保存主键的键值，所有主键要尽可能选择较短的数据类型。可以看出，应当尽量避免对主键的修改。经过dba的测试，保证主键的递增可以提高插入性能.</p>
 <p><strong><em>三. 索引类型</em></strong></p>
 <p>　　1.    普通索引,最基本的索引，没有任何限制.<br>　　2.    唯一索引,索引列的值必须唯一，但允许有空值.<br>　　3.    主键索引,主键索引属于一种特殊的唯一索引，不允许有空值.<br>　　4.    单列索引,单个多列索引（组合索引）效率高于多个单列索引.<br>　　5.    最左前缀：多列索引,多列索引只有在where条件中含有索引中的首列字段时才有效.</p>
@@ -483,11 +483,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">-Java-SpringBoot</a>
+                <a href="javascript:void(0)" class="js-tag color4">-随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">-随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">-Java-SpringBoot</a>
               </li>
             
             <div class="clearfix"></div>
